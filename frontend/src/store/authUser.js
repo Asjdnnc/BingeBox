@@ -14,7 +14,7 @@ export const useAuthStore = create((set) => ({
     set({ isSigningUp: true });
     try {
       const response = await axios.post(
-        "https://binge-box-eight.vercel.app/api/auth/signup",
+        "http://localhost:5000/api/auth/signup",
         userInfo
       );
       set({ user: response.data.user, isSigningUp: false });

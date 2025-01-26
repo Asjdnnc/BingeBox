@@ -7,7 +7,7 @@ export default defineConfig({
 	server: {
 		proxy: {
 			"/api": {
-				target: "https://binge-20yyxg03s-solo-kings-projects.vercel.app",
+				target: "http://localhost:5000",
 			},
 		},
 	},
