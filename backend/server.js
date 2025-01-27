@@ -20,6 +20,9 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE"],  // Allow these methods
   allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
 }));
+app.get("/api/auth/authCheck", (req, res) => {
+  res.json({ message: "Authenticated" });
+});
 app.use(express.json());
 app.use(cookieParser());
 
