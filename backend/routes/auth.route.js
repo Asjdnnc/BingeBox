@@ -12,6 +12,6 @@ const router = express.Router();
 router.post("/signin", signin);
 router.post("/logout", logout);
 router.post("/signup", signup);
-router.get("/authCheck",protectRoute, authCheck);
+//router.get("/authCheck",protectRoute, authCheck);
 
 export default router;

@@ -6,7 +6,7 @@ export const useAuthStore = create((set) => ({
   user: null,
   // State variables to track the authentication process
   isSigningUp: false,
-  isCheckingAuth: true,
+  isCheckingAuth: false,
   isLoggingIn: false,
   isLoggingOut: false,
 
@@ -65,19 +65,19 @@ export const useAuthStore = create((set) => ({
   },
 
   // Authentication check function
-  authCheck: async () => {
-    set({ isCheckingAuth: true });
-    try {
-      const response = await axios.get(
-        "https://binge-box-pi.vercel.app/api/auth/authCheck" // Corrected URL
-      );
-      set({ user: response.data.user, isCheckingAuth: false });
-    } catch (error) {
-      console.error("AuthCheck error:", error); // Log error for debugging
-      set({ user: null, isCheckingAuth: false });
-      const message =
-        error.response?.data?.message || "Failed to verify authentication";
-      toast.error(message);
-    }
-  },
+  // authCheck: async () => {
+  //   set({ isCheckingAuth: true });
+  //   try {
+  //     const response = await axios.get(
+  //       "https://binge-box-pi.vercel.app/api/auth/authCheck" // Corrected URL
+  //     );
+  //     set({ user: response.data.user, isCheckingAuth: false });
+  //   } catch (error) {
+  //     console.error("AuthCheck error:", error); // Log error for debugging
+  //     set({ user: null, isCheckingAuth: false });
+  //     const message =
+  //       error.response?.data?.message || "Failed to verify authentication";
+  //     toast.error(message);
+  //   }
+  // },
 }));
