@@ -15,21 +15,7 @@ const app = express();
 const PORT = ENV_VARS.PORT;
 const __dirname = path.resolve();
 
-const allowedOrigins = [
-  "https://binge-box-pi.vercel.app",  // Add the frontend URL here
-];
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-};
-
-app.use(cors(corsOptions));
+app.use(cors({origin:"*"}));
 app.use(express.json());
 app.use(cookieParser());
 
