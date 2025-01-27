@@ -14,7 +14,7 @@ export const useAuthStore = create((set) => ({
     set({ isSigningUp: true });
     try {
       const response = await axios.post(
-        "https://binge-box-eight.vercel.app/api/auth/signup",
+        "https://binge-box-pi.vercel.app/api/auth/signup",
         userInfo
       );
       set({ user: response.data.user, isSigningUp: false });
@@ -28,7 +28,7 @@ export const useAuthStore = create((set) => ({
     set({ isLoggingIn: true });
     try {
       const response = await axios.post(
-        "https://binge-box-eight.vercel.app/api/auth/signin",
+        "https://binge-box-pi.vercel.app/api/auth/signin",
         credentials
       );
       set({ user: response.data.user, isLoggingIn: false });
@@ -41,7 +41,7 @@ export const useAuthStore = create((set) => ({
   logout: async () => {
     set({ isLoggingOut: true });
     try {
-      await axios.post("https://binge-box-eight.vercel.app/api/auth/logout");
+      await axios.post("https://binge-box-pi.vercel.app/api/auth/logout");
       set({ user: null, isLoggingOut: false });
       toast.success("Logout successful");
     } catch (error) {
@@ -53,7 +53,7 @@ export const useAuthStore = create((set) => ({
     set({ isCheckingAuth: true });
     try {
       const response = await axios.get(
-        "https://binge-box-eight.vercel.app/api/auth/authCheck"
+        "https://binge-box-pi.vercel.app//auth/authCheck"
       );
       set({ user: response.data.user, isCheckingAuth: false });
     } catch (error) {
