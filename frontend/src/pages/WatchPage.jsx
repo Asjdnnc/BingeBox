@@ -31,7 +31,7 @@ const WatchPage = () => {
     const getTrailers = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/${contentType}/${id}/trailers`
+          `https://binge-box-eight.vercel.app/api/${contentType}/${id}/trailers`
         );
         setTrailers(res.data.trailers);
       } catch (error) {
@@ -48,7 +48,7 @@ const WatchPage = () => {
     const getSimilarContent = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/${contentType}/${id}/similar`
+          `https://binge-box-eight.vercel.app/api/${contentType}/${id}/similar`
         );
         setSimilarContent(res.data.similar);
       } catch (error) {
@@ -65,7 +65,7 @@ const WatchPage = () => {
     const getContentDetails = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/${contentType}/${id}/details`
+          `https://binge-box-eight.vercel.app/api/${contentType}/${id}/details`
         );
 
         setContent(res.data.details);

@@ -9,7 +9,7 @@ const useGetTrendingContent = () => {
   useEffect(() => {
     const getTrendingContent = async () => {
       const res = await axios.get(
-        `http://localhost:5000/api/${contentType}/trending`
+        `https://binge-box-eight.vercel.app/api/${contentType}/trending`
       );
       setTrendingContent(res.data.content);
     };

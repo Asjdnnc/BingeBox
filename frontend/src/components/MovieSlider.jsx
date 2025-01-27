@@ -20,7 +20,7 @@ const MovieSlider = ({ category }) => {
     const getContent = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/${contentType}/${category}`
+          `https://binge-box-eight.vercel.app/api/${contentType}/${category}`
         );
         const data = await response.json();
 
