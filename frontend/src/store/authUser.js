@@ -4,12 +4,13 @@ import { create } from "zustand";
 
 export const useAuthStore = create((set) => ({
   user: null,
-  //check if the user is signing up or not
+  // State variables to track the authentication process
   isSigningUp: false,
-  //check is the user is authenticated or not
   isCheckingAuth: true,
   isLoggingIn: false,
   isLoggingOut: false,
+
+  // Signup function
   signup: async (userInfo) => {
     set({ isSigningUp: true });
     try {
@@ -20,10 +21,15 @@ export const useAuthStore = create((set) => ({
       set({ user: response.data.user, isSigningUp: false });
       toast.success("Account created successfully");
     } catch (error) {
-      toast.error(error.response.data.message || "Something went wrong");
+      console.error("Signup error:", error); // Log error for debugging
+      const message =
+        error.response?.data?.message || "Failed to create an account";
+      toast.error(message);
       set({ isSigningUp: false, user: null });
     }
   },
+
+  // Login function
   login: async (credentials) => {
     set({ isLoggingIn: true });
     try {
@@ -32,12 +38,17 @@ export const useAuthStore = create((set) => ({
         credentials
       );
       set({ user: response.data.user, isLoggingIn: false });
+      toast.success("Login successful");
     } catch (error) {
-      console.log("Login error:", error);
+      console.error("Login error:", error); // Log error for debugging
+      const message =
+        error.response?.data?.message || "Failed to log in";
+      toast.error(message);
       set({ isLoggingIn: false, user: null });
-      toast.error(error.response.data.message || "Login failed");
     }
   },
+
+  // Logout function
   logout: async () => {
     set({ isLoggingOut: true });
     try {
@@ -45,10 +56,15 @@ export const useAuthStore = create((set) => ({
       set({ user: null, isLoggingOut: false });
       toast.success("Logout successful");
     } catch (error) {
+      console.error("Logout error:", error); // Log error for debugging
+      const message =
+        error.response?.data?.message || "Failed to log out";
+      toast.error(message);
       set({ isLoggingOut: false });
-      toast.error(error.response.data.message || "Something went wrong");
     }
   },
+
+  // Authentication check function
   authCheck: async () => {
     set({ isCheckingAuth: true });
     try {
@@ -57,9 +73,11 @@ export const useAuthStore = create((set) => ({
       );
       set({ user: response.data.user, isCheckingAuth: false });
     } catch (error) {
+      console.error("AuthCheck error:", error); // Log error for debugging
       set({ user: null, isCheckingAuth: false });
-      console.error("AuthCheck error:", error); // Log the error for debugging
-      toast.error("Failed to verify authentication");
+      const message =
+        error.response?.data?.message || "Failed to verify authentication";
+      toast.error(message);
     }
   },
 }));
