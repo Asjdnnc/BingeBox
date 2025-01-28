@@ -5,7 +5,6 @@ export const protectRoute = async (req, res, next) => {
   try {
     // Check for token in cookies
     const token = req.cookies["netflix-jwt"];
-
     if (!token) {
       console.log("No token found in cookies");
       return res
@@ -24,14 +23,21 @@ export const protectRoute = async (req, res, next) => {
         .json({ success: false, message: "Unauthorized - Invalid Token" });
     }
 
-    // Find the user associated with the token
-    const user = await User.findById(decoded.userId).select("-password");
+    // Validate userId exists in decoded payload
+    if (!decoded.id) {
+      console.log("Token does not contain userId");
+      return res
+        .status(401)
+        .json({ success: false, message: "Unauthorized - Malformed Token" });
+    }
 
+    // Find the user associated with the token
+    const user = await User.findById(decoded.id).select("-password");
     if (!user) {
-      console.log("User not found for token:", decoded.userId);
+      console.log("User not found for token:", decoded.id);
       return res
         .status(404)
-        .json({ success: false, message: "User not found" });
+        .json({ success: false, message: "Unauthorized - User Not Found" });
     }
 
     // Attach the user to the request object
@@ -40,7 +46,7 @@ export const protectRoute = async (req, res, next) => {
     // Proceed to the next middleware or route handler
     next();
   } catch (error) {
-    console.log("Error in protectRoute middleware: ", error.message);
+    console.log("Error in protectRoute middleware:", error.message);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
