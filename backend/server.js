@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: "*",  // Allow requests from your frontend URL
+  origin: "https://binge-box-pi.vercel.app",  // Allow requests from your frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],  // Allow these methods
   credentials:true,
   allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers

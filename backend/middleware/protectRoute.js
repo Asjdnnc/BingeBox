@@ -24,7 +24,7 @@ export const protectRoute = async (req, res, next) => {
     }
 
     // Validate userId exists in decoded payload
-    if (!decoded.id) {
+    if (!decoded.userId) {
       console.log("Token does not contain userId");
       return res
         .status(401)
@@ -32,7 +32,7 @@ export const protectRoute = async (req, res, next) => {
     }
 
     // Find the user associated with the token
-    const user = await User.findById(decoded.id).select("-password");
+    const user = await User.findById(decoded.userId).select("-password");
     if (!user) {
       console.log("User not found for token:", decoded.id);
       return res
