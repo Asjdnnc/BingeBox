@@ -3,33 +3,41 @@ import { User } from "../model/user.model.js";
 
 export const protectRoute = async (req, res, next) => {
   try {
+    // Check for token in cookies
     const token = req.cookies["netflix-jwt"];
 
     if (!token) {
-      console.log("no cookie found");
+      console.log("No token found in cookies");
       return res
         .status(401)
         .json({ success: false, message: "Unauthorized - No Token Provided" });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    if (!decoded) {
+    // Verify the token
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
+    } catch (error) {
+      console.log("Token verification failed:", error.message);
       return res
         .status(401)
         .json({ success: false, message: "Unauthorized - Invalid Token" });
     }
 
+    // Find the user associated with the token
     const user = await User.findById(decoded.userId).select("-password");
 
     if (!user) {
+      console.log("User not found for token:", decoded.userId);
       return res
         .status(404)
         .json({ success: false, message: "User not found" });
     }
 
+    // Attach the user to the request object
     req.user = user;
 
+    // Proceed to the next middleware or route handler
     next();
   } catch (error) {
     console.log("Error in protectRoute middleware: ", error.message);
