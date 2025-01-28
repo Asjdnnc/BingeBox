@@ -71,6 +71,7 @@ export const useAuthStore = create((set) => ({
       const response = await axios.get(
         "https://binge-box-pi.vercel.app/api/auth/authCheck" // Corrected URL
       );
+      console.log(response);
       set({ user: response.data.user, isCheckingAuth: false });
     } catch (error) {
       console.error("AuthCheck error:", error); // Log error for debugging

@@ -15,14 +15,15 @@ const app = express();
 const PORT = ENV_VARS.PORT;
 const __dirname = path.resolve();
 
+app.use(express.json());
+app.use(cookieParser());
+
 app.use(cors({
   origin: "*",  // Allow requests from your frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],  // Allow these methods
+  credentials:true,
   allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
 }));
-
-app.use(express.json());
-app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/movie", movieRoutes);
