@@ -4,6 +4,7 @@ export const generateToken = (userId, res) => {
   const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
     expiresIn: "15d",
   });
+  console.log("Generated Token:", token); // Debugging
   res.cookie("netflix-jwt", token, {
     httpOnly: true,
     sameSite: "strict",
@@ -12,3 +13,4 @@ export const generateToken = (userId, res) => {
   });
   return token;
 };
+
