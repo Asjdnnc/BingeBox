@@ -74,8 +74,8 @@ export const useAuthStore = create((set) => ({
       console.log(response);
       set({ user: response.data.user, isCheckingAuth: false });
     } catch (error) {
-      console.log("AuthCheck error:", error); // Log error for debugging
-      set({ user: null, isCheckingAuth: true });
+      console.error("AuthCheck error:", error); // Log error for debugging
+      set({ user: null, isCheckingAuth: false });
       const message =
         error.response?.data?.message || "Failed to verify authentication";
       toast.error(message);
